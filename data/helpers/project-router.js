@@ -42,7 +42,7 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
     const id = req.params;
 
-    Actions.remove(id)
+    Projects.remove(id)
     .then(response => res.status(200).json({message: "Reee moove em!"}))
     .catch(error => res.status(500).json({message: "Server Error"}));
 })
