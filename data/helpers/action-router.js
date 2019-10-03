@@ -3,29 +3,28 @@ const router = express.Router();
 const Actions = require("./actionModel");
 const Projects = require("./projectModel");
 
-//Create -> Insert
-router.post("/", (req, res) => {
-    const { description, notes, project_id } = req.body;
-    console.log(project_id);
+const restricted = (req, res, next) => {
+    const { project_id } = req.body;
+
     Projects.get(project_id)
     .then(response => {
-        console.log(response);
-        
-        !response ? res.status(404).json({message: "There is no project with that ID"}) : console.log("hi");
-        
-        Actions.insert({description, notes, project_id})
-        .then(response2 => {
-            res.status(200).json({message: "Action inserted!"});
-        })
-        .catch(error2 => {
-            res.status(500).json({message: "Server Error"});
-        })
-
+        console.log("inside middleware", response);
+        response !== null ? next() : res.status(404).json({message: "Project ID does not exist"})
     })
-    .catch(err => res.status(404).json({message: "There i no project with that ID"}));
-    
+    .catch(error => console.log(error))
+}
 
-
+//Create -> Insert
+router.post("/", restricted, (req, res) => {
+    const { description, notes, project_id } = req.body;
+    console.log("made it here");
+    Actions.insert({description, notes, project_id})
+    .then(response2 => {
+        res.status(200).json({message: "Action inserted!"});
+    })
+    .catch(error2 => {
+        res.status(500).json({message: "Server Error"});
+    })
 })
 
 //Read -> Get
