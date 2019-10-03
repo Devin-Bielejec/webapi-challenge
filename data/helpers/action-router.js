@@ -29,5 +29,13 @@ router.get("/", (req, res) => {
 })
 
 //Update -> Update
+router.put("/:id", (req, res) => {
+    const id = req.params;
+    const changes = req.body;
+
+    Actions.update(id, changes)
+    .then(response => res.status(200))
+    .catch(error => res.status(500));
+})
 
 //Delete -> Remove
