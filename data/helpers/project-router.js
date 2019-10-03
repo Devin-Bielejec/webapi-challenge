@@ -21,7 +21,7 @@ router.get("/:id", (req, res) => {
 
     Projects.get(id)
     .then(response => {
-        res.status(200).json({message: "Got em!"});
+        res.status(200).json({message: "Got em!", data: response});
     })
     .catch(error => {
         res.status(500).json({message: "Server Error"});
@@ -34,7 +34,7 @@ router.put("/:id", (req, res) => {
     const changes = req.body;
 
     Projects.update(id, changes)
-    .then(response => res.status(200).json({message: "Up date em!"}))
+    .then(response => res.status(200).json({message: "updated", data: response}))
     .catch(error => res.status(500).json({message: "Server Error"}));
 })
 
@@ -45,4 +45,13 @@ router.delete("/:id", (req, res) => {
     Projects.remove(id)
     .then(response => res.status(200).json({message: "Reee moove em!"}))
     .catch(error => res.status(500).json({message: "Server Error"}));
+})
+
+//Get list of actions for a project
+router.get("/getActions", (req, res) => {
+    const { project_id } = req.body;
+
+    Projects.getProjectActions(project_id)
+    .then(response => res.status(200).json({message: "Got em!", data: response}))
+    .catch(error => res.status(500).json({message: "Server Error"}))
 })
