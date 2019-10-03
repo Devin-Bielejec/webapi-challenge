@@ -1,18 +1,30 @@
 const express = require("express");
 const router = express.Router();
 const Actions = require("./actionModel");
+const Projects = require("./projectModel");
 
 //Create -> Insert
 router.post("/", (req, res) => {
-    const { action } = req.body;
+    // project_id: 4, etc
+    const { action, id } = req.body;
 
-    Actions.insert(action)
+    Projects.get(id)
     .then(response => {
-        res.status(200).json({message: "Action inserted!"});
+        
+        Actions.insert(action)
+        .then(response => {
+            res.status(200).json({message: "Action inserted!"});
+        })
+        .catch(error => {
+            res.status(500).json({message: "Server Error"});
+        })
+
     })
     .catch(error => {
-        res.status(500).json({message: "Server Error"});
+        res.status(404).json({message: "There is no project with that ID"})
     })
+
+
 })
 
 //Read -> Get
