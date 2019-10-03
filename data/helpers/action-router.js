@@ -34,7 +34,8 @@ router.get("/:id", (req, res) => {
 
     Actions.get(id)
     .then(response => {
-        res.status(200).json({message: "Got em!", data: response});
+        console.log(response);
+        reponse !== undefined ? res.status(200).json({message: "Got em!", data: response}) : null;
     })
     .catch(error => {
         res.status(500).json({message: "Server Error"});
