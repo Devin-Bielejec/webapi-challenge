@@ -16,6 +16,17 @@ router.post("/", (req, res) => {
 })
 
 //Read -> Get
+router.get("/", (req, res) => {
+    const { id } = req.body;
+
+    Actions.get(id)
+    .then(response => {
+        res.status(200);
+    })
+    .catch(error => {
+        res.status(500);
+    })
+})
 
 //Update -> Update
 
