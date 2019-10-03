@@ -43,12 +43,13 @@ router.get("/:id", (req, res) => {
 })
 
 //Update -> Update
-router.put("/:id", (req, res) => {
-    const id = req.params;
-    const changes = req.body;
-
-    Actions.update(id, changes)
-    .then(response => res.status(200).json({message: "Up date em!"}))
+router.put("/", (req, res) => {
+    const {project_id, description, notes } = req.body;
+    Actions.update(project_id, {description, notes})
+    .then(response => {
+        console.log(response);
+        response != null ? res.status(200).json({message: "Up date em!"}) : res.status(404).json({message: "Project Id does not exist!"});
+    })
     .catch(error => res.status(500).json({message: "Server Error"}));
 })
 
@@ -57,7 +58,10 @@ router.delete("/:id", (req, res) => {
     const id = req.params;
 
     Actions.remove(id)
-    .then(response => res.status(200).json({message: "Reee moove em!"}))
+    .then(response => {
+        console.log(response);
+        res.status(200).json({message: "Reee moove em!"})
+    })
     .catch(error => res.status(500).json({message: "Server Error"}));
 })
 
