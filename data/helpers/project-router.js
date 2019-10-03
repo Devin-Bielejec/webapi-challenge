@@ -4,9 +4,9 @@ const Projects = require("./projectModel");
 
 //Create -> Insert
 router.post("/", (req, res) => {
-    const { project } = req.body;
+    const { name, description } = req.body;
 
-    Projects.insert(project)
+    Projects.insert({name, description})
     .then(response => {
         res.status(200).json({message: "Project inserted!"});
     })
