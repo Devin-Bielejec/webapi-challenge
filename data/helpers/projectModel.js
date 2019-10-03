@@ -54,6 +54,7 @@ function remove(id) {
 }
 
 function getProjectActions(projectId) {
+  console.log(projectId);
   return db('actions')
     .where('project_id', projectId)
     .then(actions => actions.map(action => mappers.actionToBody(action)));

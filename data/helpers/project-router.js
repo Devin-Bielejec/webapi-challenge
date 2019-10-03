@@ -48,8 +48,8 @@ router.delete("/:id", (req, res) => {
 })
 
 //Get list of actions for a project
-router.get("/getActions", (req, res) => {
-    const { project_id } = req.body;
+router.get("/getActions/:project_id", (req, res) => {
+    const { project_id } = req.params;
 
     Projects.getProjectActions(project_id)
     .then(response => res.status(200).json({message: "Got em!", data: response}))
