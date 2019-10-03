@@ -40,7 +40,7 @@ router.put("/:id", (req, res) => {
 
 //Delete -> Remove
 router.delete("/:id", (req, res) => {
-    const id = req.params;
+    const { id } = req.params;
 
     Projects.remove(id)
     .then(response => res.status(200).json({message: "Reee moove em!"}))
