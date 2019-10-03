@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
 router.get("/:id", (req, res) => {
     const id = req.params;
 
-    Actions.get(id)
+    Projects.get(id)
     .then(response => {
         res.status(200).json({message: "Got em!"});
     })

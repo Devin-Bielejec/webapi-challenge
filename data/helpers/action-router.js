@@ -6,9 +6,9 @@ const Projects = require("./projectModel");
 //Create -> Insert
 router.post("/", (req, res) => {
     // project_id: 4, etc
-    const { action, id } = req.body;
+    const { action, project_id } = req.body;
 
-    Projects.get(id)
+    Projects.get(project_id)
     .then(response => {
         
         Actions.insert(action)
