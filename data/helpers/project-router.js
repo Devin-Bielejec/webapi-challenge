@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
 
 //Read -> Get
 router.get("/:id", (req, res) => {
-    const id = req.params;
+    const { id } = req.params;
 
     Projects.get(id)
     .then(response => {
