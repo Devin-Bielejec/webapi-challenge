@@ -5,24 +5,25 @@ const Projects = require("./projectModel");
 
 //Create -> Insert
 router.post("/", (req, res) => {
-    // project_id: 4, etc
-    const { action, project_id } = req.body;
-
+    const { description, notes, project_id } = req.body;
+    console.log(project_id);
     Projects.get(project_id)
     .then(response => {
+        console.log(response);
         
-        Actions.insert(action)
-        .then(response => {
+        !response ? res.status(404).json({message: "There is no project with that ID"}) : console.log("hi");
+        
+        Actions.insert({description, notes, project_id})
+        .then(response2 => {
             res.status(200).json({message: "Action inserted!"});
         })
-        .catch(error => {
+        .catch(error2 => {
             res.status(500).json({message: "Server Error"});
         })
 
     })
-    .catch(error => {
-        res.status(404).json({message: "There is no project with that ID"})
-    })
+    .catch(err => res.status(404).json({message: "There i no project with that ID"}));
+    
 
 
 })
