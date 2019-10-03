@@ -30,10 +30,10 @@ router.get("/:id", (req, res) => {
 
 //Update -> Update
 router.put("/:id", (req, res) => {
-    const id = req.params;
-    const changes = req.body;
+    const { id } = req.params;
+    const { name, description } = req.body;
 
-    Projects.update(id, changes)
+    Projects.update(id, {name, description})
     .then(response => res.status(200).json({message: "updated", data: response}))
     .catch(error => res.status(500).json({message: "Server Error"}));
 })
