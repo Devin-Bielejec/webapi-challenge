@@ -33,7 +33,7 @@ router.put("/:id", (req, res) => {
     const id = req.params;
     const changes = req.body;
 
-    Actions.update(id, changes)
+    Projects.update(id, changes)
     .then(response => res.status(200).json({message: "Up date em!"}))
     .catch(error => res.status(500).json({message: "Server Error"}));
 })
