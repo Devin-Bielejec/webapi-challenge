@@ -8,23 +8,23 @@ router.post("/", (req, res) => {
 
     Actions.insert(action)
     .then(response => {
-        res.status(200);
+        res.status(200).json({message: "Action inserted!"});
     })
     .catch(error => {
-        res.status(500);
+        res.status(500).json({message: "Server Error"});
     })
 })
 
 //Read -> Get
-router.get("/", (req, res) => {
-    const { id } = req.body;
+router.get("/:id", (req, res) => {
+    const id = req.params;
 
     Actions.get(id)
     .then(response => {
-        res.status(200);
+        res.status(200).json({message: "Got em!"});
     })
     .catch(error => {
-        res.status(500);
+        res.status(500).json({message: "Server Error"});
     })
 })
 
@@ -34,8 +34,15 @@ router.put("/:id", (req, res) => {
     const changes = req.body;
 
     Actions.update(id, changes)
-    .then(response => res.status(200))
-    .catch(error => res.status(500));
+    .then(response => res.status(200).json({message: "Up date em!"}))
+    .catch(error => res.status(500).json({message: "Server Error"}));
 })
 
 //Delete -> Remove
+router.delete("/:id", (req, res) => {
+    const id = req.params;
+
+    Actions.remove(id)
+    .then(response => res.status(200).json({message: "Reee moove em!"}))
+    .catch(error => res.status(500).json({message: "Server Error"}));
+})
