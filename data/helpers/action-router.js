@@ -44,8 +44,9 @@ router.get("/:id", (req, res) => {
 
 //Update -> Update
 router.put("/", (req, res) => {
-    const {project_id, description, notes } = req.body;
-    Actions.update(project_id, {description, notes})
+    const {id, project_id, description, notes } = req.body;
+    console.log(id, {project_id, description, notes})
+    Actions.update(id, {project_id, description, notes})
     .then(response => {
         console.log(response);
         response != null ? res.status(200).json({message: "Up date em!"}) : res.status(404).json({message: "Project Id does not exist!"});
