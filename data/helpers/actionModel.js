@@ -34,6 +34,7 @@ module.exports = {
       .then(count => (count > 0 ? this.get(id) : null));
   },
   remove: function(id) {
+    console.log(id)
     return db('actions')
       .where('id', id)
       .del();
